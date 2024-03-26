@@ -1,0 +1,8 @@
+// tsconfig.node.json
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        // Additional compiler options specific to tsconfig.node.json
+        // (if any)
+    }
+}

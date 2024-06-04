@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { API_ENDPOINT } from "../config/constants";
 import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -12,6 +12,7 @@ type Inputs = {
 };
 
 const SignupForm: React.FC = () => {
+    const [loading, setloading] = useState(false)
     const nav = useNavigate();
     const {
         register,
@@ -21,6 +22,7 @@ const SignupForm: React.FC = () => {
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         const { name, email, password } = data;
+        setloading(true)
         try {
             const response = await fetch('https://harmonybackend-9url.onrender.com/signup', {
                 method: "POST",
@@ -38,6 +40,7 @@ const SignupForm: React.FC = () => {
             } else {
                 toast.success("Sign-up successful", { theme: "dark", autoClose: 1000 });
             }
+            setloading(false)
             console.log("Sign-up successful");
             const data = await response.json();
             localStorage.setItem("authToken", data.auth_token);
@@ -102,12 +105,23 @@ const SignupForm: React.FC = () => {
                                 <span className="text-red-500">This field is required</span>
                             )}
                         </div>
-                        <button
-                            type="submit"
-                            className="w-full bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline-gray mt-4"
-                        >
-                            Sign up
-                        </button>
+
+                        {!loading &&
+                            <button
+                                type="submit"
+                                className="w-full bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline-gray mt-4"
+                            >
+                                Sign up
+                            </button>
+                        }
+                        {loading &&
+                            <button
+                                type="submit"
+                                className="w-full bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline-gray mt-4"
+                            >
+                                Creating Account!
+                            </button>
+                        }
                     </div>
                 </div>
             </section>

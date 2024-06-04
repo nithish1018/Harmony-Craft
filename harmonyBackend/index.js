@@ -22,11 +22,16 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const PORT =  3000;
 const { default: OpenAI } = require("openai"); 
+const { request } = require("http");
 const openai=new OpenAI({
     apiKey:process.env['OPENAI_API_KEY']
  })
 
 app.use(cors())
+
+app.get('/', async (request,response)=>{
+  response.send("Hello world!")
+})
 app.post("/signup", async (request, response) => {
     try {
       const hashedPwd = await bcrypt.hash(request.body.password, saltRounds);

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import MusicList from './MusicList';
 import { AudioVisualizer, } from 'react-audio-visualize';
+import { toast } from "react-toastify";
+
 
 
 
@@ -31,7 +33,7 @@ async function saveMusicToDatabase(audioData) {
         });
 
         if (response.ok) {
-            alert('Music saved successfully!');
+            toast.success('Music saved successfully!');
         } else {
             throw new Error('Failed to save music.');
         }
@@ -46,19 +48,28 @@ const CustomMusicGenerator = () => {
     const [audioUrlPart2, setAudioUrlPart2] = useState('');
     const [loading, setLoading] = useState(false);
     const [blob, setBlob] = useState();
+    const [isPlaying, setIsPlaying] = useState(false);
+
 
 
     const handleInputChange = (event) => {
         setPrompt(event.target.value);
     };
     const generateMusicParts = async () => {
+
+
         try {
+            if (!prompt) {
+                throw new Error("Failed")
+
+            }
             setLoading(true);
-            // Generate music for part 1
             const audioBytesPart1 = await query({ "inputs": prompt });
             const musicBlobPart1 = new Blob([audioBytesPart1], { type: 'audio/wav' });
             const audioUrlPart1 = URL.createObjectURL(musicBlobPart1);
             setAudioUrlPart1(audioUrlPart1);
+            setBlob(musicBlobPart1)
+
 
             // Generate music for part 2 (same as part 1)
             const audioBytesPart2 = audioBytesPart1;
@@ -71,6 +82,7 @@ const CustomMusicGenerator = () => {
 
         } catch (error) {
             console.error('Error generating music:', error);
+            toast.error("Failed To Generate Music, Enter proper prompt");
         } finally {
             setLoading(false);
         }

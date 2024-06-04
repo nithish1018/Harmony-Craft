@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 
 
 const LyricsGenerator = () => {
-    const [songName, setSongName] = useState('');
-    const [sentiment, setSentiment] = useState('');
+    const [songName, setSongName] = useState(null);
+    const [sentiment, setSentiment] = useState(null);
     const [lyrics, setLyrics] = useState('');
     const [loading, setLoading] = useState(false);
     const [musicType, setMusicPattern] = useState([]);
@@ -33,6 +35,7 @@ const LyricsGenerator = () => {
     }
 
     const generateLyrics = async () => {
+        let error = false;
         try {
             setLoading(true);
             const response = await fetch('http://127.0.0.1:5000/generate_lyrics', {
@@ -49,7 +52,6 @@ const LyricsGenerator = () => {
             if (!response.ok) {
                 throw new Error('Failed to fetch');
             }
-
             const data = await response.json();
             console.log(data.musicType + "ekquhdwjkhjw")
             if (data.musicType) {
@@ -62,9 +64,14 @@ const LyricsGenerator = () => {
             } else {
                 throw new Error('No lyrics generated');
             }
-        } catch (error) {
-            console.error('Error generating lyrics:', error);
+        } catch (err) {
+            console.error('Error generating lyrics:', err);
+            error = true
+            toast.error("Lyrics Generated Failed, Enter prompt properly", { theme: "dark", autoClose: 1000 })
+
         } finally {
+            if(!error)
+            toast.success("Lyrics Generated Succesfully!!", { theme: "dark", autoClose: 1000 })
             setLoading(false);
         }
     };
@@ -75,6 +82,7 @@ const LyricsGenerator = () => {
                 <h2 className="text-3xl font-bold text-center mb-8 text-white">Lyrics Generator</h2>
                 <div className="space-y-4">
                     <div className="flex flex-col">
+
                         <label htmlFor="songName" className="text-xl text-gray-300 font-semibold mb-2">Song Name:</label>
                         <input
                             type="text"
@@ -84,6 +92,7 @@ const LyricsGenerator = () => {
                             className="rounded border-2 p-2 bg-gray-300"
                             required
                         />
+
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="sentiment" className="text-xl font-semibold text-gray-300 mb-2">Sentiment:</label>
@@ -95,10 +104,12 @@ const LyricsGenerator = () => {
                             className="rounded border-2 p-2 bg-gray-300"
                             required
                         />
+
                     </div>
                 </div>
                 <button
                     onClick={generateLyrics}
+                    type='submit'
                     className="bg-[#001F3F] text-white rounded px-4 py-2 mt-4 hover:bg-gray-500"
                 >
                     Generate Lyrics
@@ -137,7 +148,7 @@ const LyricsGenerator = () => {
 
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

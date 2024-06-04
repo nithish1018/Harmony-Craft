@@ -3,6 +3,9 @@ import MusicList from './MusicList';
 import { useNavigate } from "react-router-dom";
 import { AudioVisualizer, } from 'react-audio-visualize';
 import { useEffect, useRef } from 'react';
+import { toast } from "react-toastify";
+
+
 
 
 async function query(data) {
@@ -32,9 +35,11 @@ async function saveMusicToDatabase(audioData) {
         });
 
         if (response.ok) {
-            alert('Music saved successfully!');
+            toast.success("Music Filed Saved in DataBase", { theme: "dark", autoClose: 1000 })
         } else {
+            toast.error("Failed to save music.", { theme: "dark", autoClose: 1000 })
             throw new Error('Failed to save music.');
+
         }
     } catch (error) {
         console.error('Error saving music:', error);
@@ -87,7 +92,10 @@ const MusicGenerator = () => {
             setLoading(true);
 
             // Perform text-to-speech synthesis
-            // const speechBlob = await textToSpeech(lyrics);
+            const speechBlob = await textToSpeech(lyrics);
+
+            toast.success("Text Read out Completed", { theme: "dark", autoClose: 1000 })
+
 
             // Generate music for part 1
             const audioBytesPart1 = await query({ "inputs": genresString });
@@ -101,6 +109,7 @@ const MusicGenerator = () => {
             const musicBlobPart2 = new Blob([audioBytesPart2], { type: 'audio/wav' });
             const audioUrlPart2 = URL.createObjectURL(musicBlobPart2);
             setAudioUrlPart2(audioUrlPart2);
+            toast.success("Music Files Generated Successfully", { theme: "dark", autoClose: 1000 })
             await saveMusicToDatabase(audioBytesPart1);
             await saveMusicToDatabase(audioBytesPart2);
 
@@ -120,6 +129,7 @@ const MusicGenerator = () => {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
+        toast.success("Successfully Downloaded!")
     };
 
     const downloadAudioPart2 = () => {
@@ -130,6 +140,8 @@ const MusicGenerator = () => {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
+        toast.success("Successfully Downloaded!")
+
     };
     const customMusicPage = () => {
         nav("/generateCustomMusic");

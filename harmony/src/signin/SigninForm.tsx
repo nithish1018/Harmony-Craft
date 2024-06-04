@@ -28,12 +28,12 @@ const SigninForm: React.FC = () => {
                 body: JSON.stringify({ email, password }),
             });
 
-            // if (!response.ok) {
-            //     toast.error("Invalid Username/Password", { theme: "dark", autoClose: 1000 });
-            //     throw new Error("Sign-in failed");
-            // } else {
-            //     toast.success("Sign-In Successful", { theme: "dark", autoClose: 1000 });
-            // }
+            if (!response.ok) {
+                toast.error("Invalid Username/Password", { theme: "dark", autoClose: 1000 });
+                throw new Error("Sign-in failed");
+            } else {
+                toast.success("Sign-In Successful", { theme: "dark", autoClose: 1000 });
+            }
 
             // console.log("Sign-in successful");
             const data = await response.json();

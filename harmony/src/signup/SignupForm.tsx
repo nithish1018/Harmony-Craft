@@ -32,13 +32,12 @@ const SignupForm: React.FC = () => {
                 }),
             });
 
-            // if (!response.ok) {
-            //     toast.error("Sign-up Failed, Try Again", { theme: "dark", autoClose: 1000 });
-            //     throw new Error("Sign-up Failed");
-            // } else {
-            //     toast.success("Sign-up successful", { theme: "dark", autoClose: 1000 });
-            // }
-            alert("Sign up successful")
+            if (!response.ok) {
+                toast.error("Sign-up Failed, Try Again", { theme: "dark", autoClose: 1000 });
+                throw new Error("Sign-up Failed");
+            } else {
+                toast.success("Sign-up successful", { theme: "dark", autoClose: 1000 });
+            }
             console.log("Sign-up successful");
             const data = await response.json();
             localStorage.setItem("authToken", data.auth_token);

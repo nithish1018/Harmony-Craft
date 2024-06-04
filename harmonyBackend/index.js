@@ -2,10 +2,9 @@ const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
 const upload = multer({
-    dest: 'uploads/', // Specify the destination folder for storing uploads
+    dest: 'uploads/',
     fileFilter: (req, file, cb) => {
-      // Validate file types here if needed
-      cb(null, true); // Accept all files for now
+      cb(null, true);
     }
   });
 const app = express();

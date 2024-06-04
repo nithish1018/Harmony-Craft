@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 
 
 const Index = () => {
-
     const nav = useNavigate();
     const handleSignup = () => {
         nav('/signup')
     }
     const handleSignIn = () => {
-        nav('/signin')
+        nav('/signin');
     }
+
     return (
         <section className="text-gray-600 body-font bg-gray-700">
             <div className="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
@@ -27,6 +27,7 @@ const Index = () => {
             </div>
         </section>
     )
+
 }
 
 export default Index

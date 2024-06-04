@@ -11,6 +11,9 @@ import CustomMusicGenerator from "../components/CustomMusicGenerator";
 import Logout from "../components/Logout";
 import Index from "../components/Index";
 
+const isAuth = !!localStorage.getItem("userData");
+
+
 const Layout = ({ children }) => {
     return (
         <>
@@ -21,6 +24,7 @@ const Layout = ({ children }) => {
 };
 
 const router = createBrowserRouter([
+
     {
         path: "/signin",
         element: (
@@ -31,11 +35,13 @@ const router = createBrowserRouter([
     },
     {
         path: "/",
-        element: (
-            <Layout>
-                <Index />
-            </Layout>
-        ),
+        element:
+
+            (
+                <Layout>
+                    {isAuth ? <LyricsGenerator /> : <Index />}
+                </Layout>
+            ),
     },
     {
         path: "/logout",

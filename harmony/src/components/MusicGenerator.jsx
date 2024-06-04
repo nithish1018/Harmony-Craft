@@ -29,7 +29,7 @@ async function saveMusicToDatabase(audioData) {
 
         console.log('FormData:', formData); // Logging FormData for debugging
 
-        const response = await fetch(`http://localhost:3000/upload-music/${id}`, {
+        const response = await fetch(`https://harmonybackend-9url.onrender.com/upload-music/${id}`, {
             method: 'POST',
             body: formData,
         });

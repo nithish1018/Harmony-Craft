@@ -22,7 +22,7 @@ const SignupForm: React.FC = () => {
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         const { name, email, password } = data;
         try {
-            const response = await fetch('http://localhost:3000/signup', {
+            const response = await fetch('https://harmonybackend-9url.onrender.com/signup', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

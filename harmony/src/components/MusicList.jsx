@@ -8,7 +8,7 @@ const MusicList = () => {
     useEffect(() => {
         const fetchMusicFiles = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/music/${userID}`);
+                const response = await fetch(`https://harmonybackend-9url.onrender.com/music/${userID}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch music files');
                 }

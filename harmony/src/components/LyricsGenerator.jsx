@@ -38,7 +38,7 @@ const LyricsGenerator = () => {
         let error = false;
         try {
             setLoading(true);
-            const response = await fetch('http://127.0.0.1:5000/generate_lyrics', {
+            const response = await fetch('http://127.0.0.1:3000/generate_lyrics', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -53,7 +53,6 @@ const LyricsGenerator = () => {
                 throw new Error('Failed to fetch');
             }
             const data = await response.json();
-            console.log(data.musicType + "ekquhdwjkhjw")
             if (data.musicType) {
                 localStorage.setItem("musicPatterns", data.musicType)
             }
@@ -70,8 +69,8 @@ const LyricsGenerator = () => {
             toast.error("Lyrics Generated Failed, Enter prompt properly", { theme: "dark", autoClose: 1000 })
 
         } finally {
-            if(!error)
-            toast.success("Lyrics Generated Succesfully!!", { theme: "dark", autoClose: 1000 })
+            if (!error)
+                toast.success("Lyrics Generated Succesfully!!", { theme: "dark", autoClose: 1000 })
             setLoading(false);
         }
     };

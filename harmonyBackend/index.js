@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
@@ -20,6 +21,10 @@ app.use(express.urlencoded({ extended: false }));
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const PORT =  3000;
+const { default: OpenAI } = require("openai"); 
+const openai=new OpenAI({
+    apiKey:process.env['OPENAI_API_KEY']
+ })
 
 app.use(cors())
 app.post("/signup", async (request, response) => {
@@ -121,6 +126,44 @@ app.post("/signup", async (request, response) => {
       res.status(500).send('Failed to retrieve music files.');
     }
   });
+
+
+  app.post('/generate_lyrics', async (req, res) => {
+    const { theme, sentiment } = req.body;
+  
+    if (!theme || !sentiment) {
+      return res.status(400).json({ error: 'Theme and sentiment are required' });
+    }
+  
+    try {
+      const lyrics = await generateLyricsOpenai(theme, sentiment);
+      const musicType = await getMusicType(lyrics);
+  
+      return res.json({ lyrics, musicType });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
+  async function generateLyricsOpenai(theme, sentiment) {
+    const prompt = `Write a full song about ${theme} with a ${sentiment} sentiment.`;
+    const response = await openai.chat.completions.create({
+      messages: [{ role: "system", content: prompt }],
+    model: "gpt-3.5-turbo",
+    });
+    return response.choices[0].message.content.trim();
+  }
+  
+  async function getMusicType(lyrics) {
+    const prompt = `Take this lyrics ${lyrics} and strictly give exactly three suitable music patterns and styles names ONLY in a list form`;
+    const response = await openai.chat.completions.create({
+      messages: [{ role: "system", content: prompt }],
+    model: "gpt-3.5-turbo",
+    });
+  
+    return response.choices[0].message.content.trim();
+  }
 
 
   app.listen(PORT, () => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { API_ENDPOINT } from "../config/constants";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,7 +10,10 @@ type Inputs = {
     password: string;
 };
 const SigninForm: React.FC = () => {
+    const [loading, setloading] = useState(false)
+
     const nav = useNavigate();
+
 
     const {
         register,
@@ -20,6 +23,7 @@ const SigninForm: React.FC = () => {
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         const { email, password } = data;
+        setloading(true)
 
         try {
             const response = await fetch("https://harmonybackend-9url.onrender.com/login", {
@@ -36,6 +40,7 @@ const SigninForm: React.FC = () => {
             }
 
             // console.log("Sign-in successful");
+            setloading(false)
             const data = await response.json();
 
             localStorage.setItem("authToken", data.auth_token);
@@ -45,6 +50,7 @@ const SigninForm: React.FC = () => {
             console.error("Sign-in failed:", error);
         }
     };
+
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -86,12 +92,24 @@ const SigninForm: React.FC = () => {
                                 <span className="text-red-500">This field is required</span>
                             )}
                         </div>
-                        <button
-                            type="submit"
-                            className="w-full bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline-gray mt-4"
-                        >
-                            Sign In
-                        </button>
+
+                        {!loading &&
+                            <button
+                                type="submit"
+                                className="w-full bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline-gray mt-4"
+                            >
+                                Sign In
+                            </button>
+                        }
+                          {loading &&
+                            <button
+                                type="submit"
+                                className="w-full bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline-gray mt-4 animate-pulse"
+                            >
+                                Signing In....Please Wait
+                            </button>
+                        }
+
                         <p style={{ fontStyle: "italic" }} className="text-white">
                             Don't have accont?{" "}
                             <Link to="/signup" className="text-white font-semibold">

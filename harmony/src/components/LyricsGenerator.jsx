@@ -109,6 +109,7 @@ const LyricsGenerator = () => {
                 <button
                     onClick={generateLyrics}
                     type='submit'
+                    disabled={loading}
                     className="bg-[#001F3F] text-white rounded px-4 py-2 mt-4 hover:bg-gray-500"
                 >
                     Generate Lyrics

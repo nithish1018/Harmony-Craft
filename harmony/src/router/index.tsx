@@ -10,6 +10,7 @@ import MusicList from "../components/MusicList";
 import CustomMusicGenerator from "../components/CustomMusicGenerator";
 import Logout from "../components/Logout";
 import Index from "../components/Index";
+import Notfound from "../components/Notfound";
 
 const isAuth = !!localStorage.getItem("userData");
 
@@ -99,6 +100,14 @@ const router = createBrowserRouter([
                 <ProtectedRoute>
                     <CustomMusicGenerator />
                 </ProtectedRoute>
+            </Layout>
+        ),
+    },
+    {
+        path: "*",
+        element: (
+            <Layout>
+                <Notfound />
             </Layout>
         ),
     },

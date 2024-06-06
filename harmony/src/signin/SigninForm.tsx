@@ -40,14 +40,15 @@ const SigninForm: React.FC = () => {
             }
 
             // console.log("Sign-in successful");
-            setloading(false)
             const data = await response.json();
-
             localStorage.setItem("authToken", data.auth_token);
             localStorage.setItem("userData", JSON.stringify(data.auth_token.id));
             nav("/generateLyrics");
         } catch (error) {
             console.error("Sign-in failed:", error);
+        }
+        finally {
+            setloading(false)
         }
     };
 
@@ -101,7 +102,7 @@ const SigninForm: React.FC = () => {
                                 Sign In
                             </button>
                         }
-                          {loading &&
+                        {loading &&
                             <button
                                 type="submit"
                                 className="w-full bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline-gray mt-4 animate-pulse"

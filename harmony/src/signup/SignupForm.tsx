@@ -35,12 +35,11 @@ const SignupForm: React.FC = () => {
             });
 
             if (!response.ok) {
-                toast.error("Sign-up Failed, Try Again", { theme: "dark", autoClose: 1000 });
+                toast.error("Emaild ID Already Exists", { theme: "dark", autoClose: 1000 });
                 throw new Error("Sign-up Failed");
             } else {
                 toast.success("Sign-up successful", { theme: "dark", autoClose: 1000 });
             }
-            setloading(false)
             console.log("Sign-up successful");
             const data = await response.json();
             localStorage.setItem("authToken", data.auth_token);
@@ -48,6 +47,9 @@ const SignupForm: React.FC = () => {
             nav("/generateLyrics");
         } catch (error) {
             console.error("Sign-up failed:", error);
+        }
+        finally {
+            setloading(false)
         }
     };
 

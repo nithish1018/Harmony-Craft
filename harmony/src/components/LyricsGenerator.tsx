@@ -5,10 +5,10 @@ import { toast } from "react-toastify";
 
 
 const LyricsGenerator = () => {
-    const [songName, setSongName] = useState(null);
-    const [sentiment, setSentiment] = useState(null);
-    const [lyrics, setLyrics] = useState('');
-    const [loading, setLoading] = useState(false);
+    const [songName, setSongName] = useState<string>("");
+    const [sentiment, setSentiment] = useState<string>("");
+    const [lyrics, setLyrics] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
     const [musicType, setMusicPattern] = useState([]);
 
     const nav = useNavigate();
@@ -103,7 +103,6 @@ const LyricsGenerator = () => {
                             className="rounded border-2 p-2 bg-gray-300"
                             required
                         />
-
                     </div>
                 </div>
                 <button

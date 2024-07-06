@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 const MusicList = () => {
     const [musicFiles, setMusicFiles] = useState([]);
     const userID = localStorage.getItem("userData");
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchMusicFiles = async () => {
@@ -16,9 +16,9 @@ const MusicList = () => {
                 if (response.ok) {
                     setLoading(false);
                 }
-                console.log('Music files:', data); 
+                console.log('Music files:', data);
 
-              
+
                 const formattedMusicFiles = data.map(music => ({
                     id: music.id,
                     music: music.music ? `data:audio/wav;base64,${arrayBufferToBase64(music.music.data)}` : null
@@ -30,7 +30,7 @@ const MusicList = () => {
         };
 
         fetchMusicFiles();
-    }, [userID]);
+    }, [userID, musicFiles]);
 
     // Function to convert ArrayBuffer to base64 string
     const arrayBufferToBase64 = (buffer) => {

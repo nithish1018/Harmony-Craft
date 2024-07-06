@@ -14,7 +14,6 @@ import Notfound from "../components/Notfound";
 
 const isAuth = !!localStorage.getItem("userData");
 
-
 const Layout = ({ children }) => {
     return (
         <>

@@ -49,18 +49,18 @@ async function saveMusicToDatabase(audioData) {
 
 
 
-async function textToSpeech(text) {
-    return new Promise<void>((resolve, reject) => {
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.voice = window.speechSynthesis.getVoices()[0];
-        utterance.pitch = 1;
-        utterance.rate = 1;
-        utterance.onend = () => {
-            resolve();
-        };
-        window.speechSynthesis.speak(utterance);
-    });
-}
+// async function textToSpeech(text) {
+//     return new Promise<void>((resolve, reject) => {
+//         const utterance = new SpeechSynthesisUtterance(text);
+//         utterance.voice = window.speechSynthesis.getVoices()[0];
+//         utterance.pitch = 1;
+//         utterance.rate = 1;
+//         utterance.onend = () => {
+//             resolve();
+//         };
+//         window.speechSynthesis.speak(utterance);
+//     });
+// }
 
 const MusicGenerator = () => {
     const [audioUrlPart1, setAudioUrlPart1] = useState('');
@@ -92,9 +92,9 @@ const MusicGenerator = () => {
             setLoading(true);
 
             // Perform text-to-speech synthesis
-            const speechBlob = await textToSpeech(lyrics);
+            // const speechBlob = await textToSpeech(lyrics);
 
-            toast.success("Text Read out Completed", { theme: "dark", autoClose: 1000 })
+            // toast.success("Text Read out Completed", { theme: "dark", autoClose: 1000 })
 
 
             // Generate music for part 1
@@ -200,7 +200,7 @@ const MusicGenerator = () => {
                                     onPause={() => setIsPlaying(false)} src={audioUrlPart2} />}
                             </div>
                         )}
-                        {isPlaying && <AudioVisualizer blob={blob}
+                        {isPlaying && blob && <AudioVisualizer blob={blob}
                             width={500}
                             height={75}
                             barWidth={1}

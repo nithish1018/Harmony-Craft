@@ -59,7 +59,7 @@ const MusicList = () => {
     };
 
     return (
-        <div className="h-auto w-[400px] border-2 rounded-lg mt-2 shadow-2xl">
+        <div className="h-auto w-fit border-2 rounded-lg mt-2 shadow-2xl">
             <h2 className='text-white font-medium text-xl p-2 ml-3'>Previously Generated Files</h2>
             {loading &&
                 <p className='text-white font-semibold p-2 ml-3 animate-pulse shadow-2xl'>Please Wait, Files are being fetched</p>

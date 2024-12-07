@@ -107,7 +107,7 @@ const CustomMusicGenerator = () => {
 
     return (
         <>
-            <div className="min-h-screen flex items-center justify-start bg-gray-700 gap-2 pl-10 pr-10">
+            <div className="h-screen flex items-center justify-start bg-gray-700 gap-2 pl-10 pr-10">
                 <MusicList />
                 <div className="ml-10 pl-10">
                     <div className="bg-gray-600 p-8 rounded-lg shadow-md w-[500px] flex flex-col ml-10">

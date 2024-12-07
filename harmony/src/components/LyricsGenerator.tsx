@@ -126,15 +126,6 @@ const LyricsGenerator = () => {
                         Generate Lyrics Again?
                     </button>
                 }
-
-                {lyrics &&
-                    <button
-                        onClick={copyToClipboard}
-                        className="bg-[#001F3F] text-white rounded ml-2 px-4 py-2 mt-4 hover:bg-gray-500"
-                    >
-                        Copy to Clipboard
-                    </button>
-                }
                 {lyrics &&
                     <button
                         onClick={musicPage}
@@ -146,7 +137,7 @@ const LyricsGenerator = () => {
                 {lyrics &&
                     <button
                         onClick={customMusicPage}
-                        className="bg-[#001F3F] text-white rounded  px-4 py-2 mt-4 hover:bg-gray-500"
+                        className="bg-[#001F3F] text-white rounded ml-2  px-4 py-2 mt-4 hover:bg-gray-500"
                     >
                         Get Custom Music Notes
                     </button>
@@ -154,7 +145,7 @@ const LyricsGenerator = () => {
                 <div className="mt-8">
                     {lyrics &&
                         <h3 className="text-xl text-white font-semibold mb-2">Generated Lyrics:</h3>}
-                    {loading && <p>Loading...</p>}
+                   {loading && <p className='text-white animate-pulse text-3xl flex justify-center align-center'>Generating Lyrics...</p>}
                     {!loading &&  <div className="flex p-2 rounded-lg  justify-center align-center bg-slate-200"> <p className="whitespace-pre-line w-full flex p-2 justify-center align-center text-black font-semibold">{lyrics}
                     </p>
                         <div onClick={copyToClipboard} className='cursor-pointer hover:animate-pulse'>

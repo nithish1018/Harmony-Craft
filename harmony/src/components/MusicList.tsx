@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { API_ENDPOINT } from '../config/constants';
 
 const MusicList = () => {
-    const [musicFiles, setMusicFiles] = useState([]);
+    interface MusicFile {
+        id: string;
+        music: string | null;
+    }
+
+    const [musicFiles, setMusicFiles] = useState<MusicFile[]>([]);
     const userID = localStorage.getItem("userData");
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchMusicFiles = async () => {
             try {
-                const response = await fetch(`https://harmonybackend-9url.onrender.com/music/${userID}`);
+                const response = await fetch(`${API_ENDPOINT}/music/${userID}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch music files');
                 }
@@ -73,7 +79,7 @@ const MusicList = () => {
 
                 </ul>
             }
-            {!loading && (!musicFiles.length > 0) &&
+            {!loading && (musicFiles.length === 0) &&
 
                 <p className='text-white font-semibold p-2 ml-3 animate-pulse'>No files found , Generate to see them here</p>
             }

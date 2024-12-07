@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import MusicList from './MusicList';
 import { AudioVisualizer } from 'react-audio-visualize';
 import { toast } from "react-toastify";
+import { API_ENDPOINT } from '../config/constants';
 
 async function query(data) {
     const response = await fetch(
@@ -25,7 +26,7 @@ async function saveMusicToDatabase(audioData) {
 
         console.log('FormData:', formData);
 
-        const response = await fetch(`https://harmonybackend-9url.onrender.com/upload-music/${id}`, {
+        const response = await fetch(`${API_ENDPOINT}/upload-music/${id}`, {
             method: 'POST',
             body: formData,
         });

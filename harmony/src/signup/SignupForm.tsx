@@ -10,7 +10,6 @@ type Inputs = {
     email: string;
     password: string;
 };
-
 const SignupForm: React.FC = () => {
     const [loading, setloading] = useState(false)
     const nav = useNavigate();
@@ -24,7 +23,7 @@ const SignupForm: React.FC = () => {
         const { name, email, password } = data;
         setloading(true)
         try {
-            const response = await fetch('https://harmonybackend-9url.onrender.com/signup', {
+            const response = await fetch(`${API_ENDPOINT}/signup`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

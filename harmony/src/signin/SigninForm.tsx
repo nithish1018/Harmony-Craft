@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { API_ENDPOINT } from "../config/constants";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import myGIF from '../assets/Gifs/new.gif'
+import { API_ENDPOINT } from "../config/constants";
 
 type Inputs = {
     email: string;
@@ -26,7 +26,7 @@ const SigninForm: React.FC = () => {
         setloading(true)
 
         try {
-            const response = await fetch("https://harmonybackend-9url.onrender.com/login", {
+            const response = await fetch(`${API_ENDPOINT}/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),

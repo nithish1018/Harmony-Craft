@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AudioVisualizer, } from 'react-audio-visualize';
 import { useEffect, useRef } from 'react';
 import { toast } from "react-toastify";
+import { API_ENDPOINT } from '../config/constants';
 
 
 
@@ -29,7 +30,7 @@ async function saveMusicToDatabase(audioData) {
 
         console.log('FormData:', formData); // Logging FormData for debugging
 
-        const response = await fetch(`https://harmonybackend-9url.onrender.com/upload-music/${id}`, {
+        const response = await fetch(`${API_ENDPOINT}/upload-music/${id}`, {
             method: 'POST',
             body: formData,
         });

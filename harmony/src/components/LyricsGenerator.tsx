@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { API_ENDPOINT } from '../config/constants';
 
 
 
@@ -38,7 +39,7 @@ const LyricsGenerator = () => {
         let error = false;
         try {
             setLoading(true);
-            const response = await fetch('https://harmonybackend-9url.onrender.com/generate_lyrics', {
+            const response = await fetch(`${API_ENDPOINT}/generate_lyrics`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

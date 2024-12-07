@@ -36,7 +36,7 @@ const MusicList = () => {
         };
 
         fetchMusicFiles();
-    }, [userID, musicFiles]);
+    }, [userID]);
 
     // Function to convert ArrayBuffer to base64 string
     const arrayBufferToBase64 = (buffer) => {
